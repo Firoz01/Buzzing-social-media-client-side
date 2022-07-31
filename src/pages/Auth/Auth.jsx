@@ -3,8 +3,12 @@ import "./Auth.css";
 
 import Logo from "../../img/logo.png";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../Api/AuthRequest";
+import { signUp } from "../../Action/AuthAction";
 const Auth = () => {
   const [isSignUp, setIsSignUp] = useState(false);
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     firstName: "",
     lastName: "",
@@ -19,9 +23,11 @@ const Auth = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isSignUp) {
-      if (data.password !== data.confirmPass) {
-        setConfirmPass(false);
-      }
+      data.password === data.confirmPass
+        ? dispatch(signUp(data))
+        : setConfirmPass(false);
+    } else {
+      dispatch(logIn(data));
     }
   };
   const resetForm = () => {
@@ -115,7 +121,10 @@ const Auth = () => {
           <div>
             <span
               style={{ fontSize: "12px", cursor: "pointer" }}
-              onClick={() => { setIsSignUp((prev) => !prev); resetForm()}}
+              onClick={() => {
+                setIsSignUp((prev) => !prev);
+                resetForm();
+              }}
             >
               {isSignUp
                 ? "Already have an account. Login!"
