@@ -10,11 +10,11 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
   const initialState = {
-    firstname: "",
-    lastname: "",
-    username: "",
+    firstName: "",
+    lastName: "",
+    userName: "",
     password: "",
-    confirmpass: "",
+    confirmPass: "",
   };
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
