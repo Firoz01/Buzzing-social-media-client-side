@@ -14,6 +14,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { uploadImage, uploadPost } from "../../Action/uploadAction";
 
 const PostShare = () => {
+  const loading = useSelector((state) => state.postReducer.uploading);
+  console.log(loading);
   const [image, setImage] = useState(null);
 
   const imageRef = useRef();
@@ -29,6 +31,11 @@ const PostShare = () => {
       let img = event.target.files[0];
       setImage(img);
     }
+  };
+
+  const reset = () => {
+    setImage(null);
+    desc.current.value = "";
   };
 
   const handleSubmit = (e) => {
@@ -52,6 +59,7 @@ const PostShare = () => {
       }
     }
     dispatch(uploadPost(newPost));
+    reset();
   };
 
   return (
@@ -80,8 +88,12 @@ const PostShare = () => {
             <UilSchedule />
             Schedule
           </div>
-          <button className="button ps-button" onClick={handleSubmit}>
-            Share
+          <button
+            className="button ps-button"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
+            {loading ? "Uploading..." : "Share"}
           </button>
           <div style={{ display: "none" }}>
             <input
