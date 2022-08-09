@@ -3,43 +3,49 @@ import "./Auth.css";
 
 import Logo from "../../img/logo.png";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { logIn } from "../../Api/AuthRequest";
-import { signUp } from "../../Action/AuthAction";
+import { useDispatch, useSelector } from "react-redux";
+
+import { signUp, logIn } from "../../Action/AuthAction";
+import { useNavigate } from "react-router-dom";
+
 const Auth = () => {
+  const initialState = {
+    firstname: "",
+    lastname: "",
+    username: "",
+    password: "",
+    confirmpass: "",
+  };
   const [isSignUp, setIsSignUp] = useState(false);
   const dispatch = useDispatch();
-  const [data, setData] = useState({
-    firstName: "",
-    lastName: "",
-    password: "",
-    confirmPass: "",
-    userName: "",
-  });
+  const loading = useSelector((state) => state.authReducer.loading);
+
+  const navigate = useNavigate();
+
+  const [data, setData] = useState(initialState);
+
   const [confirmPass, setConfirmPass] = useState(true);
+
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = (e) => {
+    setConfirmPass(true);
     e.preventDefault();
     if (isSignUp) {
       data.password === data.confirmPass
-        ? dispatch(signUp(data))
+        ? dispatch(signUp(data, navigate))
         : setConfirmPass(false);
     } else {
-      dispatch(logIn(data));
+      dispatch(logIn(data, navigate));
     }
   };
   const resetForm = () => {
-    setConfirmPass(true);
-    setData({
-      firstName: "",
-      lastName: "",
-      password: "",
-      confirmPass: "",
-      userName: "",
-    });
+    setData(initialState);
+    setConfirmPass(confirmPass);
   };
+
   return (
     <div className="Auth">
       {/* left side */}
@@ -132,7 +138,7 @@ const Auth = () => {
             </span>
           </div>
           <button className="button infoButton" type="submit">
-            {isSignUp ? "Sign Up" : "Log In"}
+            {loading ? "Loading..." : isSignUp ? "Sign Up" : "Log In"}
           </button>
         </form>
       </div>

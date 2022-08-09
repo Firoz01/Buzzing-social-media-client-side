@@ -4,7 +4,7 @@ import {
   compose,
 } from "redux";
 import thunk from "redux-thunk";
-import { reducers } from "../Reducer";
+import { reducers } from "../reducers";
 
 function saveToLocalStorage(store) {
   try {
@@ -30,8 +30,7 @@ const persistedState = loadFromLocalStorage();
 
 const store = createStore(
   reducers,
-    persistedState,
-  
+  persistedState,
   composeEnhancers(applyMiddleware(thunk))
 );
 
