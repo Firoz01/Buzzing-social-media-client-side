@@ -15,7 +15,7 @@ import { uploadImage, uploadPost } from "../../Action/uploadAction";
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading);
-  console.log(loading);
+
   const [image, setImage] = useState(null);
 
   const imageRef = useRef();
@@ -58,6 +58,7 @@ const PostShare = () => {
         console.log(error);
       }
     }
+    console.log("post share from postShare component:", newPost);
     dispatch(uploadPost(newPost));
     reset();
   };
@@ -107,7 +108,7 @@ const PostShare = () => {
         {image && (
           <div className="previewImage">
             <UilTimes onClick={() => setImage(null)} />
-            <img src={URL.createObjectURL(image)} alt="" />
+            <img src={URL.createObjectURL(image)} alt="preview" />
           </div>
         )}
       </div>
