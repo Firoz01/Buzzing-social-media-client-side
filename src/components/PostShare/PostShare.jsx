@@ -11,7 +11,7 @@ import {
 import { useState, useRef } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { uploadImage, uploadPost } from "../../Action/uploadAction";
+import { uploadPost } from "../../Action/uploadAction";
 
 const PostShare = () => {
   const loading = useSelector((state) => state.postReducer.uploading);
@@ -40,27 +40,29 @@ const PostShare = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newPost = {
+    const newPostWithOutImage = {
       userId: user._id,
       desc: desc.current.value,
     };
 
     if (image) {
       const data = new FormData();
-      const fileName = Date.now() + image.name;
-      data.append("name", fileName);
-      data.append("file", image);
-      newPost.image = fileName;
+      data.append("image", image);
+      data.append("userId", user._id);
+      data.append("desc", desc.current.value);
 
       try {
-        dispatch(uploadImage(data));
+        dispatch(uploadPost(data));
+        reset();
+        console.log("post data contain:", data);
       } catch (error) {
         console.log(error);
       }
+    } else {
+      console.log("post share from postShare component:", newPostWithOutImage);
+      dispatch(uploadPost(newPostWithOutImage));
+      reset();
     }
-    console.log("post share from postShare component:", newPost);
-    dispatch(uploadPost(newPost));
-    reset();
   };
 
   return (
