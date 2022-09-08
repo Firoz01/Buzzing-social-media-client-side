@@ -54,12 +54,10 @@ const PostShare = () => {
       try {
         dispatch(uploadPost(data));
         reset();
-        console.log("post data contain:", data);
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log("post share from postShare component:", newPostWithOutImage);
       dispatch(uploadPost(newPostWithOutImage));
       reset();
     }

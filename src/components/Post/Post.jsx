@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
 
-  console.log("data from post component:", data);
+
 
   return (
     <div className="Post">

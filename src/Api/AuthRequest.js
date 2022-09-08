@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5000" });
-//const API = axios.create({ baseURL: "https://buzzing-api.herokuapp.com" });
+import { url } from "./constant";
+
+
+const API = axios.create({ baseURL: url });
 
 export const logIn = (formData) => API.post("/api/v1/auth/login", formData);
 export const signUp = (formData) => API.post("/api/v1/auth/register", formData);
