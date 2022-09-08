@@ -9,16 +9,11 @@ import { useSelector } from "react-redux";
 const Post = ({ data }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
 
-  //console.log(data);
+  console.log("data from post component:", data);
 
   return (
     <div className="Post">
-      <img
-        src={
-          data.image ? process.env.REACT_APP_PUBLIC_FOLDER + data.image : ""
-        }
-        alt=""
-      />
+      <img src={data.image} alt="" />
       <div className="postReact">
         <img src={data?.liked ? Heart : NotLike} alt="" />
         <img src={Comment} alt="" />
