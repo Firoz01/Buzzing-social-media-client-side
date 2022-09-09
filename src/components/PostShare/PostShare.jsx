@@ -1,5 +1,6 @@
 import React from "react";
-import ProfileImage from "../../img/profileImg.jpg";
+import defaultFemaleProfileImage from "../../img/defaultFemaleProfileImage.jpg";
+import defaultMaleProfilePicture from "../../img/defaultMaleProfileImage.jpg";
 import "./PostShare.css";
 import {
   UilScenery,
@@ -65,7 +66,12 @@ const PostShare = () => {
 
   return (
     <div className="PostShare">
-      <img src={ProfileImage} alt="" />
+      <img
+        src={
+          user.profilePicture ? user.profilePicture : defaultFemaleProfileImage
+        }
+        alt=""
+      />
       <div>
         <input type="text" placeholder="What's happening" ref={desc} required />
         <div className="postOptions">

@@ -4,11 +4,15 @@ import Home from "../../img/home.png";
 import Noti from "../../img/noti.png";
 import Message from "../../img/comment.png";
 import { UilSetting } from "@iconscout/react-unicons";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <div className="navIcons">
-      <img src={Home} alt="" />
+      <Link to="../home">
+        <img src={Home} alt="" />
+      </Link>
+
       <img src={Message} alt="" />
       <img src={Noti} alt="" />
       <UilSetting />

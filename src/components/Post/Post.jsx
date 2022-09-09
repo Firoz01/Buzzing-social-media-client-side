@@ -9,7 +9,6 @@ import { useState } from "react";
 import { likePost } from "../../Api/PostRequest";
 
 const Post = ({ data }) => {
-  console.log("post.jsx data:", data);
   const { user } = useSelector((state) => state.authReducer.authData);
   const [liked, setLiked] = useState(data.likes.includes(user._id));
   const [likes, setLikes] = useState(data.likes.length);
