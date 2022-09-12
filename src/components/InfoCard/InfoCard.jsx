@@ -16,13 +16,12 @@ const InfoCard = () => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const [modalOpened, setModalOpened] = useState(false);
 
-
   useEffect(() => {
     const fetchProfileUser = async () => {
       if (profileUserId === user._id) {
         setProfileUser(user);
       } else {
-        console.log("fetching")
+        console.log("fetching");
         const profileUser = await UserApi.getUser(profileUserId);
         setProfileUser(profileUser);
       }
@@ -58,23 +57,29 @@ const InfoCard = () => {
 
       <div className="info">
         <span>
-          <b>Status </b>
+          <b>Status : </b>
         </span>
         <span>{profileUser.relationship}</span>
       </div>
 
       <div className="info">
         <span>
-          <b>Lives in </b>
+          <b>Lives in : </b>
         </span>
         <span>{profileUser.livesIn}</span>
       </div>
 
       <div className="info">
         <span>
-          <b>Works at </b>
+          <b>Works at : </b>
         </span>
         <span>{profileUser.worksAt}</span>
+      </div>
+      <div className="info">
+        <span>
+          <b>Country : </b>
+        </span>
+        <span>{profileUser.country}</span>
       </div>
       <button className="button logout-button" onClick={handleLogOut}>
         Logout

@@ -15,7 +15,6 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
   const params = useParams();
   const { user } = useSelector((state) => state.authReducer.authData);
 
- 
   const onImageChange = (e) => {
     if (e.target.files && e.target.files[0]) {
       let img = e.target.files[0];
@@ -30,8 +29,15 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
 
     let userData = formData;
 
-    const { _id, firstName, lastName, worksAt, livesIn, relationship } =
-      userData;
+    const {
+      _id,
+      firstName,
+      lastName,
+      worksAt,
+      livesIn,
+      relationship,
+      country,
+    } = userData;
 
     const updatedata = {
       _id: _id,
@@ -40,6 +46,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       worksAt: worksAt,
       livesIn: livesIn,
       relationship: relationship,
+      country: country,
     };
 
     if (profileImage && coverImage) {
@@ -52,6 +59,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       data.append("worksAt", worksAt);
       data.append("livesIn", livesIn);
       data.append("relationship", relationship);
+      data.append("country", country);
 
       try {
         dispatch(updateUser(params.id, data));
@@ -68,6 +76,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       data.append("worksAt", worksAt);
       data.append("livesIn", livesIn);
       data.append("relationship", relationship);
+      data.append("country", country);
 
       try {
         dispatch(updateUser(params.id, data));
@@ -84,6 +93,7 @@ function ProfileModal({ modalOpened, setModalOpened, data }) {
       data.append("worksAt", worksAt);
       data.append("livesIn", livesIn);
       data.append("relationship", relationship);
+      data.append("country", country);
 
       try {
         dispatch(updateUser(params.id, data));
