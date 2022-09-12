@@ -13,12 +13,12 @@ const ProfileCard = ({ location }) => {
     <div className="ProfileCard">
       <div className="ProfileImages">
         <img
-          src={user.coverPicture ? user.coverPicture : defaultCoverImage}
+          src={user?.coverPicture ? user.coverPicture : defaultCoverImage}
           alt=""
         />
         <img
           src={
-            user.profilePicture
+            user?.profilePicture
               ? user.profilePicture
               : defaultFemaleProfileImage
           }
@@ -28,21 +28,21 @@ const ProfileCard = ({ location }) => {
 
       <div className="ProfileName">
         <span>
-          {user.firstName} {user.lastName}
+          {user?.firstName} {user?.lastName}
         </span>
-        <span>{user.worksAt ? user.worksAt : "Write about yourself"}</span>
+        <span>{user?.worksAt ? user?.worksAt : "Write about yourself"}</span>
       </div>
 
       <div className="followStatus">
         <hr />
         <div>
           <div className="follow">
-            <span>{user.following.length}</span>
+            <span>{user?.following.length}</span>
             <span>Followings</span>
           </div>
           <div className="vl"></div>
           <div className="follow">
-            <span>{user.followers.length}</span>
+            <span>{user?.followers.length}</span>
             <span>Followers</span>
           </div>
 
@@ -51,7 +51,7 @@ const ProfileCard = ({ location }) => {
               <div className="vl"></div>
               <div className="follow">
                 <span>
-                  {posts.filter((post) => post.userId === user._id).length}
+                  {posts.filter((post) => post.userId === user?._id).length}
                 </span>
                 <span>Posts</span>
               </div>
@@ -66,7 +66,7 @@ const ProfileCard = ({ location }) => {
         <span>
           <Link
             style={{ textDecoration: "none", color: "inherit" }}
-            to={`/profile/${user._id}`}
+            to={`/profile/${user?._id}`}
           >
             My Profile
           </Link>

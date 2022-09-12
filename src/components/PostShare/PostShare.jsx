@@ -51,6 +51,7 @@ const PostShare = () => {
       data.append("image", image);
       data.append("userId", user._id);
       data.append("desc", desc.current.value);
+      console.log("postShare:",data);
 
       try {
         dispatch(uploadPost(data));
@@ -68,7 +69,7 @@ const PostShare = () => {
     <div className="PostShare">
       <img
         src={
-          user.profilePicture ? user.profilePicture : defaultFemaleProfileImage
+          user?.profilePicture ? user?.profilePicture : defaultFemaleProfileImage
         }
         alt=""
       />

@@ -1,23 +1,24 @@
 import * as UploadApi from "../Api/UploadRequest";
-
-// export const uploadImage = (data) => async (dispatch) => {
-//   console.log("uploadimage data",data)
-//   try {
-//     await UploadApi.uploadImage(data);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+import * as UpdateUserApi from "../Api/UserRequest";
 
 export const uploadPost = (data) => async (dispatch) => {
-  console.log("from action:", data);
   dispatch({ type: "UPLOAD_START" });
   try {
-    const newPost = await UploadApi.uploadPost(data);  
-    console.log("uploadAction from",newPost)
+    const newPost = await UploadApi.uploadPost(data);
     dispatch({ type: "UPLOAD_SUCCESS", data: newPost.data });
   } catch (error) {
     console.log(error);
     dispatch({ type: "UPLOAD_FAIL" });
+  }
+};
+
+export const updateUser = (id, formData) => async (dispatch) => {
+  dispatch({ type: "UPDATING_START" });
+  try {
+    const updateData = await UpdateUserApi.updateUser(id, formData);
+    dispatch({ type: "UPDATING_SUCCESS", data: updateData.data });
+  } catch (error) {
+    console.log(error);
+    dispatch({ type: "UPDATING_FAIL" });
   }
 };

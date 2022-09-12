@@ -9,3 +9,4 @@ const API = axios.create({ baseURL: url });
 export const uploadPost = (data) => {
   return API.post("/api/v1/posts/", data);
 };
+
