@@ -12,11 +12,10 @@ const Posts = () => {
   const { user } = useSelector((state) => state.authReducer.authData);
   let { posts, loading } = useSelector((state) => state.postReducer);
 
-  
-
   useEffect(() => {
     dispatch(getTimeLinePosts(user?._id));
   }, []);
+
   if (!posts) return "No Posts";
   if (params.id) posts = posts.filter((post) => post.userId === params.id);
   return (
