@@ -6,8 +6,9 @@ import defaultProfilePicture from "../../img/defaultFemaleProfileImage.jpg";
 
 const User = ({ person }) => {
   const { user } = useSelector((state) => state.authReducer.authData);
+
   const [following, setFollowing] = useState(
-    person.followers.includes[user._id]
+    person.followers.includes(user._id)
   );
   const dispatch = useDispatch();
   const handleFollow = () => {
@@ -31,11 +32,7 @@ const User = ({ person }) => {
         </div>
       </div>
       <button
-        className={
-          following
-            ? "button fc UnfollowButton"
-            : "button fc"
-        }
+        className={following ? "button fc UnfollowButton" : "button fc"}
         onClick={handleFollow}
       >
         {following ? "Unfollow" : "Follow"}

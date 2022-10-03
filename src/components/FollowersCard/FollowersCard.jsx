@@ -16,8 +16,6 @@ const FollowersCard = () => {
     fetchPersons();
   }, []);
 
-  console.log(persons);
-
   return (
     <div className="FollowerCard">
       <h3>Pleople you may know</h3>
