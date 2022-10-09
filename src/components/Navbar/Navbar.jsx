@@ -13,7 +13,9 @@ const Navbar = () => {
         <img src={Home} alt="" />
       </Link>
 
-      <img src={Message} alt="" />
+      <Link to="../chat">
+        <img src={Message} alt="" />
+      </Link>
       <img src={Noti} alt="" />
       <UilSetting />
     </div>
