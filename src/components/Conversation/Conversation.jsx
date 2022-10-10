@@ -16,7 +16,6 @@ const Conversation = ({ data, currentUserId }) => {
     };
     getUserData();
   }, []);
-  console.log(userData);
   return (
     <>
       <div className="conversation">
@@ -36,7 +35,7 @@ const Conversation = ({ data, currentUserId }) => {
           <span>Online</span>
         </div>
       </div>
-      <hr style={{width:"85%", border:'0.1px solid #ececec'}}/>
+      <hr style={{ width: "85%", border: "0.1px solid #ececec" }} />
     </>
   );
 };

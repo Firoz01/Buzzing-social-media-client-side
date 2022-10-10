@@ -4,10 +4,13 @@ import "./Chat.css";
 import LogoSearch from "../../components/LogoSearch/LogoSearch";
 import { userChats } from "../../Api/ChatRequest";
 import Conversation from "../../components/Conversation/Conversation";
+import Navbar from "../../components/Navbar/Navbar";
+import ChatBox from "../../components/ChatBox/ChatBox";
 
 const Chat = () => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const [chats, setChats] = useState([]);
+  const [currentChat, setCurrentChat] = useState(null);
   useEffect(() => {
     const getChats = async (req, res) => {
       try {
@@ -28,7 +31,7 @@ const Chat = () => {
           <h2>Chats</h2>
           <div className="Chat-list">
             {chats.map((chat) => (
-              <div>
+              <div onClick={() => setCurrentChat(chat)}>
                 <Conversation
                   data={chat}
                   currentUserId={user._id}
@@ -38,7 +41,13 @@ const Chat = () => {
           </div>
         </div>
       </div>
-      <div className="Right-side-chat"></div>
+      <div className="Right-side-chat">
+        <div style={{ width: "20rem", alignSelf: "flex-end" }}>
+          <Navbar />
+        </div>
+        {/*chat body */}
+        <ChatBox chat={currentChat} currentUser={user._id} />
+      </div>
     </div>
   );
 };
