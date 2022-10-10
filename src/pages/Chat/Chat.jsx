@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import "./Chat.css";
 import LogoSearch from "../../components/LogoSearch/LogoSearch";
@@ -6,11 +6,23 @@ import { userChats } from "../../Api/ChatRequest";
 import Conversation from "../../components/Conversation/Conversation";
 import Navbar from "../../components/Navbar/Navbar";
 import ChatBox from "../../components/ChatBox/ChatBox";
+import { io } from "socket.io-client";
 
 const Chat = () => {
   const { user } = useSelector((state) => state.authReducer.authData);
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io("http://localhost:8800/");
+    socket.current.emit("new-user-add", user._id);
+    socket.current.on("get-users", (users) => {
+      setOnlineUsers(users);
+    });
+  }, [user]);
+  
   useEffect(() => {
     const getChats = async (req, res) => {
       try {
