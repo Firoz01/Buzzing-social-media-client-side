@@ -13,6 +13,8 @@ const Chat = () => {
   const [chats, setChats] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
+  const [sendMessage, setSendMessage] = useState(null);
+  const [receiveMessage, setReceiveMessage] = useState(null);
   const socket = useRef();
 
   useEffect(() => {
@@ -22,7 +24,23 @@ const Chat = () => {
       setOnlineUsers(users);
     });
   }, [user]);
-  
+
+  //send message to the socket server
+
+  useEffect(() => {
+    if (sendMessage !== null) {
+      socket.current.emit("send-message", sendMessage);
+    }
+  }, [sendMessage]);
+
+  //receive message from socket server
+
+  useEffect(() => {
+    socket.current.on("receive-message", (data) => {
+      setReceiveMessage(data);
+    });
+  }, []);
+
   useEffect(() => {
     const getChats = async (req, res) => {
       try {
@@ -34,6 +52,12 @@ const Chat = () => {
     };
     getChats();
   }, [user]);
+
+  const checkOnilineStatus = (chat) => {
+    const chatMember = chat.members.find((member) => member !== user._id);
+    const online = onlineUsers.find((user) => user.userId === chatMember);
+    return online ? true : false;
+  };
 
   return (
     <div className="Chat">
@@ -47,6 +71,7 @@ const Chat = () => {
                 <Conversation
                   data={chat}
                   currentUserId={user._id}
+                  online={checkOnilineStatus(chat)}
                 ></Conversation>
               </div>
             ))}
@@ -58,7 +83,13 @@ const Chat = () => {
           <Navbar />
         </div>
         {/*chat body */}
-        <ChatBox chat={currentChat} currentUser={user._id} />
+        <ChatBox
+          chat={currentChat}
+          setSendMessage={setSendMessage}
+          receiveMessage={receiveMessage}
+          onlineUsers={onlineUsers}
+          currentUser={user._id}
+        />
       </div>
     </div>
   );

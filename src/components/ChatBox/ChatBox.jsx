@@ -1,14 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { addMessage, getMessages } from "../../Api/MessageRequest";
 import { getUser } from "../../Api/UserRequest";
 import defaultMale from "../../img/defaultMaleProfileImage.jpg";
 import { format } from "timeago.js";
 import InputEmoji from "react-input-emoji";
 import "./ChatBox.css";
-const ChatBox = ({ chat, currentUser }) => {
+import { useScrollIntoView } from "@mantine/hooks";
+const ChatBox = ({
+  chat,
+  currentUser,
+  setSendMessage,
+  receiveMessage,
+  onlineUsers,
+}) => {
   const [userData, setUserData] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const scroll = useRef();
+
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+      setMessages([...messages, receiveMessage]);
+    }
+  }, [receiveMessage]);
+
   //fetching data
   useEffect(() => {
     const userId = chat?.members.find((id) => id !== currentUser);
@@ -57,7 +72,18 @@ const ChatBox = ({ chat, currentUser }) => {
     } catch (error) {
       console.log(error);
     }
+
+    //send message to socket server
+
+    const receiverId = chat.members.find((id) => id !== currentUser);
+    setSendMessage({ ...message, receiverId });
   };
+
+  // always scrooll to the last message
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
   return (
     <>
       <div className="ChatBox-container">
@@ -90,6 +116,7 @@ const ChatBox = ({ chat, currentUser }) => {
               {messages.map((message) => (
                 <>
                   <div
+                    ref={scroll}
                     className={
                       message.senderId === currentUser
                         ? "message own"
