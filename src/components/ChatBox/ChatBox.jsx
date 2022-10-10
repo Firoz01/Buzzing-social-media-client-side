@@ -5,7 +5,6 @@ import defaultMale from "../../img/defaultMaleProfileImage.jpg";
 import { format } from "timeago.js";
 import InputEmoji from "react-input-emoji";
 import "./ChatBox.css";
-import { useScrollIntoView } from "@mantine/hooks";
 const ChatBox = ({
   chat,
   currentUser,
@@ -17,12 +16,6 @@ const ChatBox = ({
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const scroll = useRef();
-
-  useEffect(() => {
-    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
-      setMessages([...messages, receiveMessage]);
-    }
-  }, [receiveMessage]);
 
   //fetching data
   useEffect(() => {
@@ -50,6 +43,13 @@ const ChatBox = ({
     };
     if (chat !== null) fetchMessages();
   }, [chat]);
+
+  // update message real time
+  useEffect(() => {
+    if (receiveMessage !== null && receiveMessage.chatId === chat._id) {
+      setMessages([...messages, receiveMessage]);
+    }
+  }, [receiveMessage]);
 
   const handleChange = (newMessage) => {
     setNewMessage(newMessage);

@@ -5,8 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { getAllUser } from "../../Api/UserRequest";
-const FollowersCard = ({ location }) => {
-  console.log(location);
+const FollowersCard = () => {
   const [persons, setPersons] = useState([]);
   const { user } = useSelector((state) => state.authReducer.authData);
   useEffect(() => {
