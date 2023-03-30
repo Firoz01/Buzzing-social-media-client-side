@@ -31,7 +31,7 @@ const Conversation = ({ data, currentUserId, online }) => {
           }}
         />
         <div className="name" style={{ fontSize: "0.8rem" }}>
-          <span>{userData?.firstName} Hasan</span>
+          <span>{userData?.firstName}</span>
         </div>
       </div>
       <hr style={{ width: "85%", border: "0.1px solid #ececec" }} />

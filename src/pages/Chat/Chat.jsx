@@ -17,8 +17,8 @@ const Chat = () => {
   const [receiveMessage, setReceiveMessage] = useState(null);
   const socket = useRef();
 
-  const socketApi = "https://buzzing-socket-server.herokuapp.com";
-  //const socketApi = "http://localhost:8800";
+  //const socketApi = "https://buzzing-socket-server.herokuapp.com";
+  const socketApi = "http://localhost:8080";
 
   useEffect(() => {
     socket.current = io(socketApi);
